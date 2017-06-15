@@ -8,14 +8,36 @@ sequelize.define('User',{
     age:Sequlize.INTEGER
 });
 
-sequelize.sync();
+User.sync({force:true});
 
-sequelize.create();
+User.create({
+    name:'wanglu',
+    age:23
+});
 
-sequelize.findAll({
-    attributes:['name',['age','num']],             //select name age as num from...
-    where:{                                        //where name = 'jinzhi' and age = 23
+//selete
+User.findAll({
+    attributes:['name',['age','num']],           //select name age as num from...
+    where:{                                      //where name = 'jinzhi' and age = 23
         name:'jinzhi',
         age:23
     }
+});
+
+//delete
+User.destory({                                   // delete from user where name = 'gaomaoshen'
+    where:{
+        name:'gaomaoshen'                       
+    }
+});
+
+//update 
+User.update({                                    //update user set name = 'kiko' where age != null
+    name:'kiko'},
+    {
+        where:{
+            age:{
+                $ne:null
+            }
+        }
 });
